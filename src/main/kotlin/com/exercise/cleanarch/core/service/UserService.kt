@@ -11,22 +11,23 @@ import java.util.*
 @Service
 open class UserService(private val userRepositoryProvider: UserRepositoryProvider) : UserServiceProvider {
 
-    internal fun createUser(user: User) {
+    internal fun saveUser(user: User) {
         userRepositoryProvider.save(user)
     }
 
-    internal fun getUserById(id: Long): Optional<User> {
+    internal fun findUserById(id: Long): Optional<User> {
         return userRepositoryProvider.findById(id)
     }
 
-    override fun convertAndCreateUser(id: Long, userRequestProvider: UserRequestProvider) {
-        createUser(userRequestProvider.convert(id))
+    override fun buildAndSaveUser(id: Long, userRequestProvider: UserRequestProvider) {
+        saveUser(userRequestProvider.buildUser(id))
     }
 
-    override fun getUserByIdAndConvert(id: Long, userResponseProvider: UserResponseProvider): UserResponseProvider {
-        val user = getUserById(id)
-        if (user.isPresent) userResponseProvider.populate(user.get())
-        return userResponseProvider
+    override fun findUserByIdAndBuild(id: Long, userResponseProvider: UserResponseProvider): UserResponseProvider {
+        val user = findUserById(id)
+        return if (user.isPresent)
+            userResponseProvider.buildUserResponseProvider(user.get())
+        else userResponseProvider
     }
 
 }

@@ -38,10 +38,10 @@ class UserServiceTest {
         val user = User()
         user.id = testId
         user.name = testName
-        userService.createUser(user)
+        userService.saveUser(user)
 
         Mockito.`when`(userRepositoryProvider.findById(testId)).thenReturn(Optional.of(user))
-        val userFromDb = userService.getUserById(testId)
+        val userFromDb = userService.findUserById(testId)
 
         Assertions.assertThat(userFromDb.isPresent).isEqualTo(true)
         Assertions.assertThat(userFromDb.get().id).isEqualTo(testId)
@@ -49,7 +49,7 @@ class UserServiceTest {
     }
 
     @Test
-    fun testConvertAndCreate() {
+    fun testBuildAndSaveUser() {
         val testId = 123L
         val testName = "123 Name"
 
@@ -57,20 +57,20 @@ class UserServiceTest {
         user.id = testId
         user.name = testName
 
-        Mockito.`when`(userRequestProvider.convert(testId)).thenReturn(user)
+        Mockito.`when`(userRequestProvider.buildUser(testId)).thenReturn(user)
 
-        userService.convertAndCreateUser(testId, userRequestProvider)
-        verify(userRequestProvider, times(1)).convert(any())
+        userService.buildAndSaveUser(testId, userRequestProvider)
+        verify(userRequestProvider, times(1)).buildUser(any())
         verify(userRepositoryProvider, times(1)).save(any())
     }
 
     @Test
-    fun testGetUserByIdAndConvert() {
+    fun testFindUserByIdAndBuild() {
         val testId = 123L
         val testName = "123 Name"
 
-        userService.getUserByIdAndConvert(testId, userResponseProvider)
-        verify(userResponseProvider, times(0)).populate(any())
+        userService.findUserByIdAndBuild(testId, userResponseProvider)
+        verify(userResponseProvider, times(0)).buildUserResponseProvider(any())
         verify(userRepositoryProvider, times(1)).findById(testId)
 
         val user = User()
@@ -79,8 +79,15 @@ class UserServiceTest {
 
         Mockito.`when`(userRepositoryProvider.findById(testId)).thenReturn(Optional.of(user))
 
-        userService.getUserByIdAndConvert(testId, userResponseProvider)
-        verify(userResponseProvider, times(1)).populate(any())
+        val userResponse = userService.findUserByIdAndBuild(testId, TestUserResponse()) as TestUserResponse
         verify(userRepositoryProvider, times(2)).findById(testId)
+        Assertions.assertThat(userResponse.id).isEqualTo(testId)
+        Assertions.assertThat(userResponse.name).isEqualTo(testName)
+    }
+}
+
+private class TestUserResponse(val id: Long? = null, val name: String? = null) : UserResponseProvider {
+    override fun buildUserResponseProvider(user: User): UserResponseProvider {
+        return TestUserResponse(user.id, user.name)
     }
 }

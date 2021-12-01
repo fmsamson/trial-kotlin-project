@@ -34,7 +34,7 @@ class UserControllerIntegrationTest {
         )
             .andExpect(MockMvcResultMatchers.status().isOk)
 
-        Mockito.verify(userServiceProvider, Mockito.times(1)).convertAndCreateUser(any(), any())
+        Mockito.verify(userServiceProvider, Mockito.times(1)).buildAndSaveUser(any(), any())
     }
 
     @Test
@@ -42,7 +42,7 @@ class UserControllerIntegrationTest {
         val testId = 123L
         val testName = "user 123"
         val testUserResponse = UserResponse(testId, testName)
-        Mockito.`when`(userServiceProvider.getUserByIdAndConvert(testId, UserResponse())).thenReturn(testUserResponse)
+        Mockito.`when`(userServiceProvider.findUserByIdAndBuild(testId, UserResponse())).thenReturn(testUserResponse)
 
          val userResponseEntity = mockMvc.perform(MockMvcRequestBuilders.get("/users/${testId}"))
              .andExpect(MockMvcResultMatchers.status().isOk)
