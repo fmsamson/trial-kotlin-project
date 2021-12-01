@@ -3,6 +3,7 @@ package com.exercise.cleanarch.infra.controller
 import com.exercise.cleanarch.core.provider.UserServiceProvider
 import com.exercise.cleanarch.infra.controller.model.UserRequest
 import com.exercise.cleanarch.infra.controller.model.UserResponse
+import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 
@@ -11,8 +12,9 @@ import org.springframework.web.bind.annotation.*
 class UserController(private val userServiceProvider: UserServiceProvider) {
 
     @PutMapping("/{id}")
-    fun createUser(@PathVariable id: Long, @RequestBody userRequest: UserRequest) {
-        userServiceProvider.buildAndSaveUser(id, userRequest)
+    fun createUser(@PathVariable id: Long, @RequestBody userRequest: UserRequest): ResponseEntity<UserResponse> {
+        val userResponse = userServiceProvider.buildAndSaveUser(id, userRequest, UserResponse()) as UserResponse
+        return ResponseEntity<UserResponse>(userResponse, HttpStatus.CREATED)
     }
 
     @GetMapping("/{id}")

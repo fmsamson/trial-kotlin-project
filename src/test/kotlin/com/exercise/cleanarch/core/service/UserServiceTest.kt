@@ -38,6 +38,8 @@ class UserServiceTest {
         val user = User()
         user.id = testId
         user.name = testName
+
+        Mockito.`when`(userRepositoryProvider.save(any())).thenReturn(user)
         userService.saveUser(user)
 
         Mockito.`when`(userRepositoryProvider.findById(testId)).thenReturn(Optional.of(user))
@@ -58,8 +60,9 @@ class UserServiceTest {
         user.name = testName
 
         Mockito.`when`(userRequestProvider.buildUser(testId)).thenReturn(user)
+        Mockito.`when`(userRepositoryProvider.save(any())).thenReturn(user)
 
-        userService.buildAndSaveUser(testId, userRequestProvider)
+        userService.buildAndSaveUser(testId, userRequestProvider, userResponseProvider)
         verify(userRequestProvider, times(1)).buildUser(any())
         verify(userRepositoryProvider, times(1)).save(any())
     }

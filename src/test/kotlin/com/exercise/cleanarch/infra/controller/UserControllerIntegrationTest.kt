@@ -32,9 +32,9 @@ class UserControllerIntegrationTest {
                 .content("{\"name\":\"user 123\"}")
                 .contentType("application/json")
         )
-            .andExpect(MockMvcResultMatchers.status().isOk)
+            .andExpect(MockMvcResultMatchers.status().isCreated)
 
-        Mockito.verify(userServiceProvider, Mockito.times(1)).buildAndSaveUser(any(), any())
+        Mockito.verify(userServiceProvider, Mockito.times(1)).buildAndSaveUser(any(), any(), any())
     }
 
     @Test
@@ -44,10 +44,11 @@ class UserControllerIntegrationTest {
         val testUserResponse = UserResponse(testId, testName)
         Mockito.`when`(userServiceProvider.findUserByIdAndBuild(testId, UserResponse())).thenReturn(testUserResponse)
 
-         val userResponseEntity = mockMvc.perform(MockMvcRequestBuilders.get("/users/${testId}"))
-             .andExpect(MockMvcResultMatchers.status().isOk)
-             .andReturn()
+        val userResponseEntity = mockMvc.perform(MockMvcRequestBuilders.get("/users/${testId}"))
+            .andExpect(MockMvcResultMatchers.status().isOk)
+            .andReturn()
 
-        Assertions.assertThat(userResponseEntity.response.contentAsString).isEqualTo("{\"id\":${testId},\"name\":\"${testName}\"}")
+        Assertions.assertThat(userResponseEntity.response.contentAsString)
+            .isEqualTo("{\"id\":${testId},\"name\":\"${testName}\"}")
     }
 }
