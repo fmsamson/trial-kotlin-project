@@ -1,7 +1,7 @@
 package com.exercise.cleanarch.infra.controller
 
-import com.exercise.cleanarch.ports.service.UserServiceProvider
 import com.exercise.cleanarch.infra.controller.model.UserResponse
+import com.exercise.cleanarch.ports.core.UserServiceProvider
 import org.assertj.core.api.Assertions
 import org.junit.jupiter.api.Test
 import org.mockito.Mockito

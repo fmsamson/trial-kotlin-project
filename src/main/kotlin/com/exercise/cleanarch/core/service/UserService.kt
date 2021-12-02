@@ -1,10 +1,10 @@
 package com.exercise.cleanarch.core.service
 
 import com.exercise.cleanarch.core.entity.User
-import com.exercise.cleanarch.ports.repository.UserRepositoryProvider
-import com.exercise.cleanarch.ports.controller.UserRequestProvider
-import com.exercise.cleanarch.ports.controller.UserResponseProvider
-import com.exercise.cleanarch.ports.service.UserServiceProvider
+import com.exercise.cleanarch.ports.core.UserRequestProvider
+import com.exercise.cleanarch.ports.core.UserResponseProvider
+import com.exercise.cleanarch.ports.core.UserServiceProvider
+import com.exercise.cleanarch.ports.infra.UserRepositoryProvider
 import org.springframework.stereotype.Service
 import java.util.*
 

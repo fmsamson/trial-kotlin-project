@@ -4,7 +4,7 @@ import javax.persistence.Entity
 import javax.persistence.Id
 
 @Entity
-class User() {
+class User {
 
     @Id
     var id: Long? = null

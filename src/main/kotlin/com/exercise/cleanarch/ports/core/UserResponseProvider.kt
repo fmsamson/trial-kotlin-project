@@ -1,4 +1,4 @@
-package com.exercise.cleanarch.ports.controller
+package com.exercise.cleanarch.ports.core
 
 import com.exercise.cleanarch.core.entity.User
 

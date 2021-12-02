@@ -1,7 +1,4 @@
-package com.exercise.cleanarch.ports.service
-
-import com.exercise.cleanarch.ports.controller.UserRequestProvider
-import com.exercise.cleanarch.ports.controller.UserResponseProvider
+package com.exercise.cleanarch.ports.core
 
 interface UserServiceProvider {
     fun buildAndSaveUser(
