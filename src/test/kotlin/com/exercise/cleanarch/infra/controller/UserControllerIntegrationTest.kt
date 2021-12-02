@@ -1,6 +1,6 @@
 package com.exercise.cleanarch.infra.controller
 
-import com.exercise.cleanarch.core.provider.UserServiceProvider
+import com.exercise.cleanarch.ports.service.UserServiceProvider
 import com.exercise.cleanarch.infra.controller.model.UserResponse
 import org.assertj.core.api.Assertions
 import org.junit.jupiter.api.Test

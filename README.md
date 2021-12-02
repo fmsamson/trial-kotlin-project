@@ -16,8 +16,8 @@ There are three main layers:
     - `service` It holds the business logic and also "protects" application domain objects. It also provides the
       communication logic between domain objects and the infrastructure.
 - `ports` It consists of provider interfaces
-    - `provider` It provides interfaces that serve as "ports" for the infrastructure to communicate with the `core`
-      layer.
+    - `provider` It provides interfaces that serve as "ports" for the `infrastructure` to communicate with the `core`
+      layer and vice versa.
 - `infra:` It consists of the controller layer, repository layer, or other layers that is responsible for outside the
   application communication.
     - `controller` It is the REST API controller that is responsible for incoming requests of the application. It has its

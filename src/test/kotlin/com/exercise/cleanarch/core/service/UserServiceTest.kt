@@ -1,9 +1,9 @@
 package com.exercise.cleanarch.core.service
 
 import com.exercise.cleanarch.core.entity.User
-import com.exercise.cleanarch.core.provider.UserRepositoryProvider
-import com.exercise.cleanarch.core.provider.UserRequestProvider
-import com.exercise.cleanarch.core.provider.UserResponseProvider
+import com.exercise.cleanarch.ports.repository.UserRepositoryProvider
+import com.exercise.cleanarch.ports.controller.UserRequestProvider
+import com.exercise.cleanarch.ports.controller.UserResponseProvider
 import org.assertj.core.api.Assertions
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith

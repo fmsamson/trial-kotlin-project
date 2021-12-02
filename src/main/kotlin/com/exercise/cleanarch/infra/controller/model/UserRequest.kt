@@ -1,7 +1,7 @@
 package com.exercise.cleanarch.infra.controller.model
 
 import com.exercise.cleanarch.core.entity.User
-import com.exercise.cleanarch.core.provider.UserRequestProvider
+import com.exercise.cleanarch.ports.controller.UserRequestProvider
 
 data class UserRequest(val name:String? = null) : UserRequestProvider {
 //    var name: String? = null
