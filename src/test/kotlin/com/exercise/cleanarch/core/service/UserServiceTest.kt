@@ -1,8 +1,8 @@
 package com.exercise.cleanarch.core.service
 
 import com.exercise.cleanarch.core.entity.User
-import com.exercise.cleanarch.ports.core.UserRequestProvider
-import com.exercise.cleanarch.ports.core.UserResponseProvider
+import com.exercise.cleanarch.ports.core.UserInboundProvider
+import com.exercise.cleanarch.ports.core.UserOutboundProvider
 import com.exercise.cleanarch.ports.infra.UserRepositoryProvider
 import org.assertj.core.api.Assertions
 import org.junit.jupiter.api.Test
@@ -25,10 +25,10 @@ class UserServiceTest {
     private lateinit var userRepositoryProvider: UserRepositoryProvider
 
     @Mock
-    private lateinit var userRequestProvider: UserRequestProvider
+    private lateinit var userInboundProvider: UserInboundProvider
 
     @Mock
-    private lateinit var userResponseProvider: UserResponseProvider
+    private lateinit var userOutboundProvider: UserOutboundProvider
 
     @Test
     fun testCrud() {
@@ -59,11 +59,11 @@ class UserServiceTest {
         user.id = testId
         user.name = testName
 
-        Mockito.`when`(userRequestProvider.buildUser(testId)).thenReturn(user)
+        Mockito.`when`(userInboundProvider.buildUser(testId)).thenReturn(user)
         Mockito.`when`(userRepositoryProvider.save(any())).thenReturn(user)
 
-        userService.buildAndSaveUser(testId, userRequestProvider, userResponseProvider)
-        verify(userRequestProvider, times(1)).buildUser(any())
+        userService.buildAndSaveUser(testId, userInboundProvider, userOutboundProvider)
+        verify(userInboundProvider, times(1)).buildUser(any())
         verify(userRepositoryProvider, times(1)).save(any())
     }
 
@@ -72,8 +72,8 @@ class UserServiceTest {
         val testId = 123L
         val testName = "123 Name"
 
-        userService.findUserByIdAndBuild(testId, userResponseProvider)
-        verify(userResponseProvider, times(0)).buildUserResponseProvider(any())
+        userService.findUserByIdAndBuild(testId, userOutboundProvider)
+        verify(userOutboundProvider, times(0)).buildUserOutbound(any())
         verify(userRepositoryProvider, times(1)).findById(testId)
 
         val user = User()
@@ -82,15 +82,15 @@ class UserServiceTest {
 
         Mockito.`when`(userRepositoryProvider.findById(testId)).thenReturn(Optional.of(user))
 
-        val userResponse = userService.findUserByIdAndBuild(testId, TestUserResponse()) as TestUserResponse
+        val userResponse = userService.findUserByIdAndBuild(testId, TestUserOutbound()) as TestUserOutbound
         verify(userRepositoryProvider, times(2)).findById(testId)
         Assertions.assertThat(userResponse.id).isEqualTo(testId)
         Assertions.assertThat(userResponse.name).isEqualTo(testName)
     }
 }
 
-private class TestUserResponse(val id: Long? = null, val name: String? = null) : UserResponseProvider {
-    override fun buildUserResponseProvider(user: User): UserResponseProvider {
-        return TestUserResponse(user.id, user.name)
+private class TestUserOutbound(val id: Long? = null, val name: String? = null) : UserOutboundProvider {
+    override fun buildUserOutbound(user: User): UserOutboundProvider {
+        return TestUserOutbound(user.id, user.name)
     }
 }

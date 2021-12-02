@@ -3,9 +3,9 @@ package com.exercise.cleanarch.ports.core
 interface UserServiceProvider {
     fun buildAndSaveUser(
         id: Long,
-        userRequestProvider: UserRequestProvider,
-        userResponseProvider: UserResponseProvider
-    ): UserResponseProvider
+        userInboundProvider: UserInboundProvider,
+        userOutboundProvider: UserOutboundProvider
+    ): UserOutboundProvider
 
-    fun findUserByIdAndBuild(id: Long, userResponseProvider: UserResponseProvider): UserResponseProvider
+    fun findUserByIdAndBuild(id: Long, userOutboundProvider: UserOutboundProvider): UserOutboundProvider
 }

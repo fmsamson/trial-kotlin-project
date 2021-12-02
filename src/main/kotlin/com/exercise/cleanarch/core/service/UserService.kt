@@ -1,8 +1,8 @@
 package com.exercise.cleanarch.core.service
 
 import com.exercise.cleanarch.core.entity.User
-import com.exercise.cleanarch.ports.core.UserRequestProvider
-import com.exercise.cleanarch.ports.core.UserResponseProvider
+import com.exercise.cleanarch.ports.core.UserInboundProvider
+import com.exercise.cleanarch.ports.core.UserOutboundProvider
 import com.exercise.cleanarch.ports.core.UserServiceProvider
 import com.exercise.cleanarch.ports.infra.UserRepositoryProvider
 import org.springframework.stereotype.Service
@@ -21,18 +21,18 @@ open class UserService(private val userRepositoryProvider: UserRepositoryProvide
 
     override fun buildAndSaveUser(
         id: Long,
-        userRequestProvider: UserRequestProvider,
-        userResponseProvider: UserResponseProvider
-    ): UserResponseProvider {
-        val user = saveUser(userRequestProvider.buildUser(id))
-        return userResponseProvider.buildUserResponseProvider(user)
+        userInboundProvider: UserInboundProvider,
+        userOutboundProvider: UserOutboundProvider
+    ): UserOutboundProvider {
+        val user = saveUser(userInboundProvider.buildUser(id))
+        return userOutboundProvider.buildUserOutbound(user)
     }
 
-    override fun findUserByIdAndBuild(id: Long, userResponseProvider: UserResponseProvider): UserResponseProvider {
+    override fun findUserByIdAndBuild(id: Long, userOutboundProvider: UserOutboundProvider): UserOutboundProvider {
         val user = findUserById(id)
         return if (user.isPresent)
-            userResponseProvider.buildUserResponseProvider(user.get())
-        else userResponseProvider
+            userOutboundProvider.buildUserOutbound(user.get())
+        else userOutboundProvider
     }
 
 }
