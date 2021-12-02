@@ -1,8 +1,8 @@
 package com.exercise.cleanarch.core.service
 
 import com.exercise.cleanarch.core.entity.User
-import com.exercise.cleanarch.ports.core.UserInboundProvider
-import com.exercise.cleanarch.ports.core.UserOutboundProvider
+import com.exercise.cleanarch.ports.infra.UserInboundProvider
+import com.exercise.cleanarch.ports.infra.UserOutboundProvider
 import com.exercise.cleanarch.ports.infra.UserRepositoryProvider
 import org.assertj.core.api.Assertions
 import org.junit.jupiter.api.Test
