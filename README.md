@@ -6,7 +6,7 @@ This is an exercise kotlin project to create an Hexagonal with Onion Core Archit
 
 | Main Layers | Detailed Layers |
 | --- | --- |
-| ![Hexagonal](docs/hexagonal_with_onion_core_architecture.png) | ![Hexagonal](docs/hexagonal_with_onion_core_architecture_detailed.png) |
+| ![hexagonal_with_onion_core_architecture](docs/hexagonal_with_onion_core_architecture.png) | ![hexagonal_with_onion_core_architecture_detailed](docs/hexagonal_with_onion_core_architecture_detailed.png) |
 
 There are three main layers:
 
@@ -20,5 +20,7 @@ There are three main layers:
   communication outside the application.
     - `controller` It is the REST API controller that is responsible for incoming requests of the application. It has
       its own `model` which serves its request and response model for the communication. These models implement the
-      interfaces from the `provider` so that it can interact with the provided `service` from the `core`.
-    - `repository` It is responsible for the communication with the database of the application.
+      interfaces from the `ports` (`InboundProvider` and `OutboundProvider`) so that it can interact with the
+      provided `service` from the `core`.
+    - `repository` It is responsible for the communication with the database which stores the `domain/entity` of the
+      application
