@@ -27,6 +27,9 @@ class UserControllerIntegrationTest {
     @MockBean
     private lateinit var userServiceProvider: UserServiceProvider
 
+    @MockBean
+    private lateinit var userValidatorServiceProvider: UserValidationServiceProvider
+
     @Test
     fun testCreateUser() {
         mockMvc.perform(
@@ -52,5 +55,20 @@ class UserControllerIntegrationTest {
 
         Assertions.assertThat(userResponseEntity.response.contentAsString)
             .isEqualTo("{\"id\":${testId},\"name\":\"${testName}\"}")
+    }
+
+    @Test
+    fun testAccessWithError() {
+        val testId = 123L
+
+        Mockito.`when`(userValidatorServiceProvider.isUserExist(testId)).thenReturn(false)
+        val thrown = Assertions.assertThatThrownBy {
+            mockMvc.perform(MockMvcRequestBuilders.get("/users/access/${testId}"))
+        }
+        thrown.hasMessageContaining("Cannot Access")
+
+        Mockito.`when`(userValidatorServiceProvider.isUserExist(testId)).thenReturn(true)
+        mockMvc.perform(MockMvcRequestBuilders.get("/users/access/${testId}"))
+            .andExpect(MockMvcResultMatchers.status().isOk)
     }
 }

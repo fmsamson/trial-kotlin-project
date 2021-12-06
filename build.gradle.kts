@@ -13,6 +13,8 @@ repositories {
     mavenCentral()
 }
 
+apply(plugin = "io.freefair.aspectj.post-compile-weaving")
+
 dependencies {
     // base
     implementation("org.jetbrains.kotlin:kotlin-reflect:${project.property("kotlin.reflect.version")}")
@@ -20,6 +22,7 @@ dependencies {
     implementation(platform("org.springframework.cloud:spring-cloud-dependencies:${project.property("spring.cloud.version")}"))
     // main framework
     implementation("org.springframework.boot:spring-boot")
+    compileOnly("org.aspectj:aspectjrt")
     implementation("com.fasterxml.jackson.core:jackson-databind")
     // controller
     implementation("org.springframework.boot:spring-boot-starter-web")

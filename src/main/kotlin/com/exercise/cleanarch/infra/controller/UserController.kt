@@ -24,4 +24,10 @@ open class UserController(private val userServiceProvider: UserServiceProvider) 
         return ResponseEntity.ok(userResponse)
     }
 
+    @GetMapping("/access/{id}")
+    @ValidateAccess
+    fun createUser2(@PathVariable id: Long): ResponseEntity<Long> {
+        return ResponseEntity.ok(id)
+    }
+
 }
