@@ -1,5 +1,6 @@
 package com.exercise.cleanarch
 
+import com.exercise.cleanarch.infra.aspect.ValidationAspect
 import com.exercise.cleanarch.infra.controller.UserController
 import com.exercise.cleanarch.ports.core.UserServiceProvider
 import com.exercise.cleanarch.ports.core.UserValidationServiceProvider
@@ -24,11 +25,15 @@ class MainAppIntegrationTest {
     @Autowired
     private lateinit var userRepositoryProvider: UserRepositoryProvider
 
+    @Autowired
+    private lateinit var validationAspect: ValidationAspect
+
     @Test
     fun testContextLoads() {
         Assertions.assertThat(userController).isNotNull
         Assertions.assertThat(userServiceProvider).isNotNull
         Assertions.assertThat(userValidationServiceProvider).isNotNull
         Assertions.assertThat(userRepositoryProvider).isNotNull
+        Assertions.assertThat(validationAspect).isNotNull
     }
 }

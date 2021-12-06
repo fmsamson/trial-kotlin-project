@@ -13,7 +13,7 @@ import org.mockito.junit.jupiter.MockitoExtension
 class UserValidationServiceTest {
 
     @InjectMocks
-    private lateinit var userValidationService: UserValidationServiceService
+    private lateinit var userValidationService: UserValidationService
 
     @Mock
     private lateinit var userRepositoryProvider: UserRepositoryProvider

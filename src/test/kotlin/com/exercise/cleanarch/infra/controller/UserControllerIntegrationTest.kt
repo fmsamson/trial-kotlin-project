@@ -1,7 +1,9 @@
 package com.exercise.cleanarch.infra.controller
 
+import com.exercise.cleanarch.ConfigurationApp
 import com.exercise.cleanarch.infra.controller.model.UserResponse
 import com.exercise.cleanarch.ports.core.UserServiceProvider
+import com.exercise.cleanarch.ports.core.UserValidationServiceProvider
 import org.assertj.core.api.Assertions
 import org.junit.jupiter.api.Test
 import org.mockito.Mockito
@@ -15,7 +17,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers
 import org.springframework.web.servlet.config.annotation.EnableWebMvc
 
-@SpringBootTest(classes = [UserController::class])
+@SpringBootTest(classes = [UserController::class, ConfigurationApp::class])
 @AutoConfigureMockMvc
 @EnableWebMvc
 class UserControllerIntegrationTest {

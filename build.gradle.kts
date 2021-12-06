@@ -2,9 +2,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     kotlin("jvm") version "1.6.0"
-//    kotlin("plugin.lombok") version "1.6.0"
-//    id("io.freefair.lombok") version "5.3.0"
-//    id("org.jetbrains.kotlin.plugin.spring") version "1.6.0"
+    id("io.freefair.aspectj.post-compile-weaving") version "5.3.3.3"
     application
 }
 
@@ -49,5 +47,5 @@ tasks.withType<KotlinCompile> {
 }
 
 application {
-    mainClass.set("com.practice.MainApp")
+    mainClass.set("com.exercise.cleanarch.MainApp")
 }
