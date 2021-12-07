@@ -6,7 +6,7 @@ plugins {
     application
 }
 
-group = "com.practice"
+group = "com.exercise"
 version = "1.0-SNAPSHOT"
 
 repositories {
@@ -38,6 +38,7 @@ dependencies {
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.junit.jupiter:junit-jupiter-engine")
     testImplementation("org.junit.jupiter:junit-jupiter-api")
+    testImplementation("com.tngtech.archunit:archunit-junit5:${project.property("archunit.version")}")
     testImplementation("org.mockito.kotlin:mockito-kotlin:${project.property("mockito.kotlin.version")}")
 }
 
