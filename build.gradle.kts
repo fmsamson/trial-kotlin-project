@@ -40,6 +40,11 @@ dependencies {
     testImplementation("org.junit.jupiter:junit-jupiter-api")
     testImplementation("com.tngtech.archunit:archunit-junit5:${project.property("archunit.version")}")
     testImplementation("org.mockito.kotlin:mockito-kotlin:${project.property("mockito.kotlin.version")}")
+
+    testImplementation("io.cucumber:cucumber-java:6.10.4")
+    testImplementation("io.cucumber:cucumber-junit:6.10.4")
+    testImplementation("io.cucumber:cucumber-spring:6.10.4")
+    testImplementation("org.junit.vintage:junit-vintage-engine:5.7.1")
 }
 
 tasks.test {
