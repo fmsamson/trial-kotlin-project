@@ -66,4 +66,14 @@ class HexagonalWithOnionCoreArchTest {
             .should()
             .beInterfaces()!!
 
+    @ArchTest
+    val portsLayerShouldOnlyDependOnCoreEntity =
+        ArchRuleDefinition.noClasses()
+            .that()
+            .resideInAPackage("$PORTS_PACKAGE..")
+            .should()
+            .dependOnClassesThat()
+            .resideOutsideOfPackages("$CORE_ENTITY_PACKAGE..", "$PORTS_PACKAGE..",
+                "java..", "javax.persistence..", "org.jetbrains..", "kotlin..", "org.springframework.data..")!!
+
 }
